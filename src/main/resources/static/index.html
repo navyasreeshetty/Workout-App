@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FitTrack - Workout & Fitness Companion</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navigation Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-gradient">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="bi bi-activity me-2"></i>FitTrack
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">My Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container-fluid py-5 main-bg">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-9">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+          <h1 class="display-5 fw-bold text-dark mb-2">Welcome to FitTrack</h1>
+          <p class="lead text-muted">Track your steps and calculate daily calories</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-pills mb-4 justify-content-center" id="mainTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active rounded-pill px-4 me-2" id="stepTab" data-bs-toggle="tab" data-bs-target="#stepContent" type="button" role="tab" aria-controls="stepContent" aria-selected="true">
+              <i class="bi bi-walk me-2"></i>Step Counter
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link rounded-pill px-4" id="calorieTab" data-bs-toggle="tab" data-bs-target="#calorieContent" type="button" role="tab" aria-controls="calorieContent" aria-selected="false">
+              <i class="bi bi-fire me-2"></i>Calorie Calculator
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="mainTabContent">
+          <!-- Step Counter Tab -->
+          <div class="tab-pane fade show active" id="stepContent" role="tabpanel" aria-labelledby="stepTab">
+            <div class="card card-elevated shadow-lg">
+              <div class="card-body p-5">
+                <!-- Step Display Card -->
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="stat-card bg-primary-light rounded-4 p-4 text-center h-100">
+                      <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-walk display-4 text-primary"></i>
+                      </div>
+                      <p class="text-muted small mb-2">Total Steps</p>
+                      <h2 class="fw-bold text-dark mb-0" id="total">0</h2>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="stat-card bg-success-light rounded-4 p-4 text-center h-100">
+                      <div class="d-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-graph-up display-4 text-success"></i>
+                      </div>
+                      <p class="text-muted small mb-2">Daily Goal</p>
+                      <h2 class="fw-bold text-dark mb-0">10,000</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step Input Section -->
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <label for="stepsInput" class="form-label fw-semibold">Add Steps</label>
+                    <div class="input-group input-group-lg">
+                      <input type="number" class="form-control form-control-lg" id="stepsInput" value="1000" min="1" placeholder="Enter steps" />
+                      <button class="btn btn-primary btn-lg fw-semibold" id="addBtn" type="button">
+                        <i class="bi bi-plus-circle me-2"></i>Add
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-6 d-flex align-items-end">
+                    <button class="btn btn-outline-danger btn-lg w-100 fw-semibold" id="resetBtn">
+                      <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="text-muted mb-0">Progress to Goal</p>
+                    <span class="badge bg-primary" id="progressPercent">0%</span>
+                  </div>
+                  <div class="progress" style="height: 25px;">
+                    <div class="progress-bar bg-success" id="progressBar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="row text-center mt-5">
+                  <div class="col-md-4 mb-3">
+                    <div class="p-3 rounded-3 bg-light">
+                      <p class="text-muted small mb-2">Distance (km)</p>
+                      <h4 class="fw-bold text-dark mb-0" id="distance">0.0</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="p-3 rounded-3 bg-light">
+                      <p class="text-muted small mb-2">Calories Burned</p>
+                      <h4 class="fw-bold text-dark mb-0" id="caloriesBurned">0</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="p-3 rounded-3 bg-light">
+                      <p class="text-muted small mb-2">Avg Speed</p>
+                      <h4 class="fw-bold text-dark mb-0" id="avgSpeed">0.0 km/h</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calorie Calculator Tab -->
+          <div class="tab-pane fade" id="calorieContent" role="tabpanel" aria-labelledby="calorieTab">
+            <div class="card card-elevated shadow-lg">
+              <div class="card-body p-5">
+                <h5 class="mb-4 text-dark fw-bold">Daily Calorie Calculator</h5>
+
+                <!-- Input Form -->
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3">
+                    <label for="age" class="form-label fw-semibold">Age</label>
+                    <input type="number" class="form-control form-control-lg" id="age" placeholder="e.g., 25" min="1" max="120" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="weight" class="form-label fw-semibold">Weight (kg)</label>
+                    <input type="number" class="form-control form-control-lg" id="weight" placeholder="e.g., 70" min="1" max="300" step="0.1" />
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3">
+                    <label for="height" class="form-label fw-semibold">Height (cm)</label>
+                    <input type="number" class="form-control form-control-lg" id="height" placeholder="e.g., 180" min="1" max="250" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label fw-semibold">Gender</label>
+                    <select class="form-select form-select-lg" id="gender">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6 mb-3">
+                    <label for="activityLevel" class="form-label fw-semibold">Activity Level</label>
+                    <select class="form-select form-select-lg" id="activityLevel">
+                      <option value="1.2">Sedentary (little/no exercise)</option>
+                      <option value="1.375">Lightly active (1-3 days/week)</option>
+                      <option value="1.55" selected>Moderately active (3-5 days/week)</option>
+                      <option value="1.725">Very active (6-7 days/week)</option>
+                      <option value="1.9">Extremely active (2x per day)</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 d-flex align-items-end mb-3">
+                    <button class="btn btn-success btn-lg w-100 fw-semibold" id="calculateBtn">
+                      <i class="bi bi-calculator me-2"></i>Calculate
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="calorieResults" class="mt-5" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <div class="stat-card bg-warning-light rounded-4 p-4 text-center h-100">
+                        <p class="text-muted small mb-2">BMR (Basal Metabolic Rate)</p>
+                        <h2 class="fw-bold text-dark mb-2" id="bmrResult">0</h2>
+                        <p class="text-muted small mb-0">Calories/day at rest</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="stat-card bg-danger-light rounded-4 p-4 text-center h-100">
+                        <p class="text-muted small mb-2">Daily Calories</p>
+                        <h2 class="fw-bold text-dark mb-2" id="tdeeResult">0</h2>
+                        <p class="text-muted small mb-0">Based on activity level</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <div class="alert alert-info d-flex align-items-center" role="alert">
+                        <i class="bi bi-lightbulb me-3 fs-5"></i>
+                        <div>
+                          <strong>Tip:</strong> To lose 0.5 kg/week, reduce calorie intake by ~500 calories. To gain, add ~500 calories.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-md-4 mb-3">
+                      <div class="p-3 rounded-3 bg-light text-center">
+                        <p class="text-muted small mb-2">Weight Loss</p>
+                        <h5 class="fw-bold text-danger mb-0" id="weightLoss">0</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <div class="p-3 rounded-3 bg-light text-center">
+                        <p class="text-muted small mb-2">Maintenance</p>
+                        <h5 class="fw-bold text-dark mb-0" id="maintenance">0</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <div class="p-3 rounded-3 bg-light text-center">
+                        <p class="text-muted small mb-2">Weight Gain</p>
+                        <h5 class="fw-bold text-success mb-0" id="weightGain">0</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-0">FitTrack &copy; 2025 | Your personal fitness companion</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
